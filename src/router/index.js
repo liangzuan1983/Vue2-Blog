@@ -16,49 +16,47 @@ const Routers = [
     name: 'homePage',
     component: Index,
     meta: {
-      title: 'YJ-主页'
-    },
-    children: [
-      {
-        path: '/classification/html',
-        name: 'html',
-        component: Html,
-        meta: {
-          title: 'YJ-HTML'
-        }
-      },
-      {
-        path: '/classification/css',
-        name: 'css',
-        component: Css,
-        meta: {
-          title: 'YJ-CSS'
-        }
-      },
-      {
-        path: '/classification/javascript',
-        name: 'javascript',
-        component: JavaScript,
-        meta: {
-          title: 'YJ-JavaScript'
-        }
-      },
-      {
-        path: '/classification/vue',
-        name: 'vue',
-        component: Vuepage,
-        meta: {
-          title: 'YJ-Vue.js'
-        }
-      }
-    ]
+      title: 'YJ-首页'
+    }
+  },
+  {
+    path: '/html',
+    name: 'htmlPage',
+    component: Html,
+    meta: {
+      title: 'YJ-HTML'
+    }
+  },
+  {
+    path: '/css',
+    name: 'cssPage',
+    component: Css,
+    meta: {
+      title: 'YJ-CSS'
+    }
+  },
+  {
+    path: '/javascript',
+    name: 'javascriptPage',
+    component: JavaScript,
+    meta: {
+      title: 'YJ-JavaScript'
+    }
+  },
+  {
+    path: '/vue',
+    name: 'vuePage',
+    component: Vuepage,
+    meta: {
+      title: 'YJ-Vue.js'
+    }
   },
   {
     path: '/demos',
     name: 'demosPage',
     component: Demos,
     meta: {
-      title: 'Demos'
+      title: 'YJ-Demos'
     }
   },
   {

@@ -1,7 +1,6 @@
 <template>
   <div>
-    <my-nav></my-nav>
-    <h1>CSS</h1>
+      <h1>文章区域测试</h1>
   </div>
 </template>
 

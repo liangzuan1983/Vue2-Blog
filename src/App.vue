@@ -7,6 +7,7 @@
 <script>
 // clickoutside指令
 import Vue from 'vue'
+
 Vue.directive('clickoutside', {
   bind: function (el, binding, vnode) {
     function documentHandler (e) {

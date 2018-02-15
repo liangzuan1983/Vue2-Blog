@@ -2,7 +2,7 @@
   <div class="container" v-cloak>
       <nav>
           <!-- logo -->
-          <div class="nav-logo"><router-link to="homePage">YJ</router-link></div>
+          <div class="nav-logo"><router-link :to="{name: 'homePage'}">YJ</router-link></div>
           <!-- 窄屏下的菜单按钮 -->
           <div class="nav-menu-button" @click="toggleSidebar">
               <span></span>
@@ -13,10 +13,10 @@
           <ul :class="['nav-list',{'nav-list-opend': opended}]" v-clickoutside="clickOutside">
               <li v-for="item in navList" :key="item.url">
                   <a v-if="item.hasList">{{item.text}}<div class="nav-down-arrow"></div></a>
-                  <router-link v-if="!item.hasList" :to="item.url">{{item.text}}</router-link>
+                  <router-link v-if="!item.hasList" :to="{name: item.url}">{{item.text}}</router-link>
                   <ul class="nav-list-menu" v-if="item.hasList">
                       <li v-for="childItem in item.list" :key="childItem.url">
-                          <router-link :to="childItem.url">{{childItem.text}}</router-link>
+                          <router-link :to="{name: childItem.url}">{{childItem.text}}</router-link>
                       </li>
                   </ul>
               </li>
@@ -32,7 +32,7 @@ export default {
       navList: [
         {
           text: '首页',
-          url: '/',
+          url: 'homePage',
           hasList: false
         },
         {
@@ -41,25 +41,25 @@ export default {
           list: [
             {
               text: 'HTML',
-              url: '/classification/html'
+              url: 'htmlPage'
             },
             {
               text: 'CSS',
-              url: '/classification/css'
+              url: 'cssPage'
             },
             {
               text: 'JavaScript',
-              url: '/classification/javascript'
+              url: 'javascriptPage'
             },
             {
               text: 'Vue.js',
-              url: '/classification/vue'
+              url: 'vuePage'
             }
           ]
         },
         {
-          text: 'demos',
-          url: '/demos'
+          text: 'Demos',
+          url: 'demosPage'
         }
       ],
       opended: false
@@ -211,4 +211,8 @@ nav .nav-list-opend {
   overflow: auto;
   box-shadow: 2px 0px 8px #ccc;
 }
+
+/* .router-link-exact-active {
+  background: #888;
+} */
 </style>
