@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '../components/page-index'
-import Demos from '../components/page-demos'
-import Html from '../components/page-html'
-import JavaScript from '../components/page-javascript'
-import Css from '../components/page-css'
-import Vuepage from '../components/page-vue'
+import Index from '../views/page-index'
+import Demos from '../views/page-demos'
+import Html from '../views/page-html'
+import JavaScript from '../views/page-javascript'
+import Css from '../views/page-css'
+import Vuepage from '../views/page-vue'
+import Otherpage from '../views/page-other'
 
 Vue.use(Router)
 
@@ -57,6 +58,14 @@ const Routers = [
     component: Demos,
     meta: {
       title: 'YJ-Demos'
+    }
+  },
+  {
+    path: '/other',
+    name: 'otherPage',
+    component: Otherpage,
+    meta: {
+      title: 'YJ-杂七杂八'
     }
   },
   {

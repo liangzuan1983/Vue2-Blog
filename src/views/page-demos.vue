@@ -1,7 +1,9 @@
 <template>
   <div>
       <my-nav></my-nav>
-      <h1>Vue.js</h1>
+      <my-container>
+        <h1>demos</h1>
+      </my-container>
   </div>
 </template>
 

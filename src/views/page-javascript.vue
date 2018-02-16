@@ -1,7 +1,9 @@
 <template>
   <div>
       <my-nav></my-nav>
-      <h1>JavaScript</h1>
+      <my-container>
+        <h1>JavaScript</h1>
+      </my-container>
   </div>
 </template>
 

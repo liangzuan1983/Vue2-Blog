@@ -54,6 +54,10 @@ export default {
             {
               text: 'Vue.js',
               url: 'vuePage'
+            },
+            {
+              text: '杂七杂八',
+              url: 'otherPage'
             }
           ]
         },
@@ -82,10 +86,13 @@ export default {
 .container {
   width: 100%;
   height: auto;
+  background: #fff;
   box-shadow: 0 2px 4px #ccc;
+  position: fixed;
+  z-index: 999;
 }
 nav {
-  width: 75%;
+  max-width: 980px;
   margin: 0 auto;
   height: 55px;
   box-sizing: border-box;
@@ -129,10 +136,9 @@ nav .nav-list > li a:hover {
   background: #666;
 }
 nav .nav-list > li .nav-list-menu {
-  /* min-width: 100px; */
   background: #fff;
   box-shadow: 0 2px 10px #ccc;
-  position: relative;
+  position: absolute;
   border-radius: 5px;
   height: 0;
   overflow: hidden;
@@ -181,6 +187,9 @@ nav .nav-menu-button:active {
     width: 100%;
     margin: 0 0 15px 0;
   }
+  nav .nav-list > li .nav-list-menu {
+    position: relative;
+  }
   nav .nav-list > li a {
     border-radius: 0;
     margin: 0;
@@ -188,6 +197,7 @@ nav .nav-menu-button:active {
   nav .nav-menu-button {
     display: block;
     float: right;
+    right: 20px;
     padding: 8px 5px;
     position: relative;
     border: 1px solid #ccc;
@@ -203,7 +213,7 @@ nav .nav-menu-button:active {
     margin-top: 6px;
   }
   nav .nav-logo {
-      margin-left: 0;
+      margin-left: 20px;
   }
 }
 nav .nav-list-opend {
