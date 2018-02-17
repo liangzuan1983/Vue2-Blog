@@ -8,6 +8,7 @@ import JavaScript from '../views/page-javascript'
 import Css from '../views/page-css'
 import Vuepage from '../views/page-vue'
 import Otherpage from '../views/page-other'
+import Articlepage from '../views/page-article'
 
 Vue.use(Router)
 
@@ -18,6 +19,13 @@ const Routers = [
     component: Index,
     meta: {
       title: 'YJ-首页'
+    }
+  },
+  {
+    path: '/article/:id',
+    component: Articlepage,
+    meta: {
+      title: 'YJ'
     }
   },
   {

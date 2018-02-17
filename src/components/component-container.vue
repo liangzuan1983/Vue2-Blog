@@ -13,6 +13,7 @@ export default {}
 <style scoped>
 .container {
   max-width: 980px;
+  width: auto;
   margin: 0 auto;
   padding: 20px 10px;
   border: 1px solid #ccc;

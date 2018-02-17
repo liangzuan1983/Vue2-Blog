@@ -1,6 +1,6 @@
 <template>
   <div v-cloak>
-    <div class="article-container">
+    <div class="article-container" v-if="articles.length">
       <div class="article" v-for="(item, index) in articles" :key="index">
         <p>
           <a @click="openUrl(index)" class="article-title">{{item.title}}</a>
@@ -13,6 +13,9 @@
           <a class="article-openall" @click="openAll(index)">{{item.toggleName}}</a>
         </p>
       </div>
+    </div>
+    <div v-else class="article-empty">
+      <p>没有相关内容</p>
     </div>
   </div>
 </template>
@@ -105,7 +108,7 @@ export default {
   border-radius: 5px;
   height: auto;
   background: #fff;
-  box-shadow: 0 0 5px #ccc;
+  box-shadow: 0 1px 5px #ccc;
 }
 .article-container .article .article-title {
   font-size: 30px;
@@ -145,5 +148,21 @@ export default {
 .article-container .article .article-openall {
   color: rgb(126, 161, 255);
   cursor: pointer;
+}
+
+.article-empty {
+  max-width: 680px;
+  background: #fff;
+  box-shadow: 0 0 5px #ccc;
+  margin: 30px 0;
+  padding: 96px 0;
+}
+.article-empty p {
+  margin: 30px 0;
+  padding: 10px 10px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #666;
+  text-align: center;
 }
 </style>

@@ -21,6 +21,9 @@
                   </ul>
               </li>
           </ul>
+          <div class="nav-search">
+            <slot></slot>
+          </div>
       </nav>
   </div>
 </template>
