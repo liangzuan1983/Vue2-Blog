@@ -3,7 +3,7 @@
     <div class="article-container" v-if="articles.length">
       <div class="article" v-for="(item, index) in articles" :key="index">
         <p>
-          <a @click="openUrl(index)" class="article-title">{{item.title}}</a>
+          <router-link :to="{ name: 'articlePage', params: {title:item.title}}" class="article-title">{{item.title}}</router-link>
         </p>
         <p class="article-type-date">
           分类：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{item.date}}
@@ -26,7 +26,6 @@ export default {
     return {
       articles: [
         {
-          url: 'htmlPage',
           title: '测试标题',
           type: 'javascript',
           content:
@@ -39,7 +38,6 @@ export default {
           toggleName: '阅读全文'
         },
         {
-          url: 'htmlPage',
           title: '测试标题',
           type: 'javascript',
           content:
@@ -52,7 +50,6 @@ export default {
           toggleName: '阅读全文'
         },
         {
-          url: 'htmlPage',
           title: '测试标题',
           type: 'javascript',
           content:
@@ -68,9 +65,6 @@ export default {
     }
   },
   methods: {
-    openUrl (index) {
-      this.$router.push({name: this.articles[index].url})
-    },
     openAll (index) {
       this.articles[index].opened = !this.articles[index].opened
       this.setCurContent(index)
@@ -95,6 +89,7 @@ export default {
     for (let i = 0; i < this.articles.length; i++) {
       this.setCurContent(i)
     }
+    console.log('articles mounted')
   }
 }
 </script>
@@ -115,6 +110,7 @@ export default {
   font-weight: bold;
   color: #666;
   cursor: pointer;
+  text-decoration: none;
 }
 .article-container .article .article-title:hover {
   color: #777;

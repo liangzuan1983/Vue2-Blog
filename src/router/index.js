@@ -22,11 +22,9 @@ const Routers = [
     }
   },
   {
-    path: '/article/:id',
-    component: Articlepage,
-    meta: {
-      title: 'YJ'
-    }
+    path: '/article/:title',
+    name: 'articlePage',
+    component: Articlepage
   },
   {
     path: '/html',
@@ -90,7 +88,11 @@ const RouterConfig = {
 const router = new Router(RouterConfig)
 
 router.beforeEach((to, from, next) => {
-  window.document.title = to.meta.title
+  if (to.meta.title) {
+    window.document.title = to.meta.title
+  } else if (to.params) {
+    window.document.title = 'YJ-' + to.params.title
+  }
   next()
 })
 

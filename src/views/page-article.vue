@@ -1,29 +1,26 @@
 <template>
   <div v-cloak>
-  <my-container>
-    <div class="article-container">
+    <!-- <div class="article-container"> -->
       <!-- 文章区域 -->
-    <div class="article">
-      <p>
-      <a class="article-title">{{title}}</a>
-      </p>
-      <p class="article-type-date">
-      分类：{{type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{date}}
-      </p>
-      <div class="article-content" v-html="content"></div>
-      <!-- 留言区域 -->
-      <div class="leave-word">
-      <p class="tip">您的邮箱不会被公开</p>
-      <input type="text" v-model="leaveWord.name" placeholder="昵称" />
-      <input type="text" v-model="leaveWord.mail" placeholder="邮箱" />
-      <textarea v-model="leaveWord.content" placeholder="写点什么..."></textarea>
+      <div class="article">
+        <p>
+          <a class="article-title">{{title}}</a>
+        </p>
+        <p class="article-type-date">
+          分类：{{type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{date}}
+        </p>
+        <div class="article-content" v-html="content"></div>
+        <!-- 留言区域 -->
+        <div class="leave-word">
+          <p class="tip">您的邮箱不会被泄露</p>
+          <input type="text" v-model="leaveWord.name" placeholder="昵称" />
+          <input type="text" v-model="leaveWord.mail" placeholder="邮箱" />
+          <textarea v-model="leaveWord.content" placeholder="写点什么..."></textarea>
+          <button class="publish">发布</button>
+        </div>
       </div>
     </div>
-    </div>
-    <my-profile class="profile"></my-profile>
-    <my-fresharticles class="fresharticles"></my-fresharticles>
-  </my-container>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -90,42 +87,12 @@ export default {
   text-indent: 0;
 }
 
-.profile {
-  margin-left: 10px;
-  margin-top: 30px;
-  display: inline-block;
-  position: fixed;
-}
-.article-container {
-  display: inline-block;
-  width: 680px;
-}
-.fresharticles {
-  display: inline-block;
-  position: fixed;
-  margin-left: 10px;
-  margin-top: 380px;
-}
-
-@media (max-width: 980px) {
-  .profile {
-  display: none;
-  }
-  .fresharticles {
-  display: none;
-  }
-  .article-container {
-  display: block;
-  max-width: 680px;
-  width: auto;
-  margin: 30px auto 0 auto;
-  }
-}
-
 .leave-word {
   margin-top: 100px;
   width: 100%;
+  max-width: 640px;
   padding-right: 10px;
+  border-top: 2px solid #ccc;
 }
 .leave-word .tip {
   line-height: 50px;
@@ -145,13 +112,29 @@ export default {
 }
 .leave-word textarea {
   display: block;
-  margin: 20px 10px;
+  margin: 20px auto;
   height: 100px;
-  max-width: 640px;
+  max-width: 620px;
   width: 100%;
   border-radius: 5px;
   outline: none;
   border: none;
   background: #eee;
+  resize: none;
+}
+.leave-word .publish {
+  width: 48px;
+  height: 32px;
+  color: #666;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+.leave-word .publish:hover {
+  box-shadow: 0 0 7px #ccc;
+}
+.leave-word .publish:active {
+  background: #fff;
 }
 </style>

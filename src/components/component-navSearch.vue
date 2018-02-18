@@ -4,11 +4,11 @@
         <input type="text" v-model="value" class="search-input" @blur="inputBlur" />
         <div class="search-button" :style="{background: 'url(' + navSearchBg + ')'}"
                 @click="handleClick" @keydown.enter="handleEnter"></div>
-        <ul class="search-autocomplete">
+        <!-- <ul class="search-autocomplete">
             <li v-for="(item, index) in autocompleteList" :key="index" @click="autoInput(index)">
                 {{item}}
             </li>
-        </ul>
+        </ul> -->
       </div>
   </div>
 </template>
