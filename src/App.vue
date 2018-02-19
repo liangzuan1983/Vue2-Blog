@@ -17,13 +17,11 @@ import Vue from 'vue'
 import myNav from './components/component-nav'
 import myNavSearch from './components/component-navSearch'
 import myContainer from './components/component-container'
-import myArticles from './components/component-articles'
 import myProfile from './components/component-profile'
 import myFreshArticle from './components/component-fresharticles'
 
 Vue.component('my-nav', myNav)
 Vue.component('my-navsearch', myNavSearch)
-Vue.component('my-articles', myArticles)
 Vue.component('my-container', myContainer)
 Vue.component('my-profile', myProfile)
 Vue.component('my-fresharticles', myFreshArticle)

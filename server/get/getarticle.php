@@ -14,15 +14,27 @@ if (!$con) {
             $re .= ("{" .
                 '"title"' . ":" . '"' . $row["articletitle"] . '"' . ',' .
                 '"type"' . ":" . '"' . $row["articletype"] . '"' .  "," .
-                '"content"' . ":" . '"' . $row["articlecontent"] . '"' . "," .
-                '"leavecontent"' . ":" . '"' . $row["leavecontent"] . '"' . "," .
-                '"leavemail"' . ":" . '"' . $row["leavemail"] . '"' . "," .
-                '"leavename"' . ":" . '"' . $row["leavename"] . '"' .
-                 "}"
+                '"content"' . ":" . '"' . $row["articlecontent"] . '"' .  "," .
+                '"date"' . ":" . '"' . $row["articledate"] . '"' .
+                 "},"
             );
             break; 
     }
-    echo $re;
+
+    $sql = "select * from leavewords where articletitle=" . '"' . $title . '"';
+    $result = mysql_query($sql, $con);
+    $re .= "[";
+    while($row = mysql_fetch_array($result)) {
+        $re .= ("{" .
+            '"name"' . ":" . '"' . $row["leavename"] . '"' . ',' .
+            '"mail"' . ":" . '"' . $row["leavemail"] . '"' .  "," .
+            '"content"' . ":" . '"' . $row["leavecontent"] . '"' .  "," .
+            '"date"' . ":" . '"' . $row["leavedate"] . '"' .
+             "},"
+        );
+    }
+
+    echo "[" . substr($re, 0, -1) . "]]";
 }
 mysql_close($con);
 ?>

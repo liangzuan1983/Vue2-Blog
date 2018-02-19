@@ -13,6 +13,9 @@
           <a class="article-openall" @click="openAll(index)">{{item.toggleName}}</a>
         </p>
       </div>
+      <div class="article-pagenum-button">
+        <slot></slot>
+      </div>
     </div>
     <div v-else class="article-empty">
       <p>没有相关内容</p>
@@ -21,47 +24,19 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import bus from '../bus.js'
+
 export default {
+  props: {
+    url: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
-      articles: [
-        {
-          title: '测试标题',
-          type: 'javascript',
-          content:
-            `测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容
-            测试内容测试内容测试内容测试内容测试内容内容内测试内容测试内容测试内容测试内容测试
-            测试内容测试内容测试内容测试内容测试内容内容内`,
-          curContent: '',
-          date: '2018-1-20',
-          opened: false,
-          toggleName: '阅读全文'
-        },
-        {
-          title: '测试标题',
-          type: 'javascript',
-          content:
-            `测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容
-            测试内容测试内容测试内容测试内容测试内容内容内测试内容测试内容测试内容测试内容测试
-            测试内容测试内容测试内容测试内容测试内容内容内`,
-          curContent: '',
-          date: '2018-1-20',
-          opened: false,
-          toggleName: '阅读全文'
-        },
-        {
-          title: '测试标题',
-          type: 'javascript',
-          content:
-            `测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容
-            测试内容测试内容测试内容测试内容测试内容内容内测试内容测试内容测试内容测试内容测试
-            测试内容测试内容测试内容测试内容测试内容内容内`,
-          curContent: '',
-          date: '2018-1-20',
-          opened: false,
-          toggleName: '阅读全文'
-        }
-      ]
+      articles: []
     }
   },
   methods: {
@@ -86,10 +61,20 @@ export default {
     }
   },
   mounted: function () {
-    for (let i = 0; i < this.articles.length; i++) {
-      this.setCurContent(i)
-    }
-    console.log('articles mounted')
+    let _this = this
+    _this.$http.get(_this.url)
+      .then(function (response) {
+        let pageCount = response.data.pop()
+        let data = response.data
+        for (let i = 0; i < data.length; i++) {
+          _this.articles.push(data[i])
+          Vue.set(_this.articles[i], 'curContent', '')
+          Vue.set(_this.articles[i], 'toggleName', '阅读全文')
+          Vue.set(_this.articles[i], 'opened', false)
+          bus.$emit('on-data', Math.ceil(pageCount / 10))
+          _this.setCurContent(i)
+        }
+      })
   }
 }
 </script>
@@ -144,6 +129,11 @@ export default {
 .article-container .article .article-openall {
   color: rgb(126, 161, 255);
   cursor: pointer;
+}
+.article-pagenum-button {
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .article-empty {

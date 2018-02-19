@@ -18,6 +18,15 @@
           <textarea v-model="leaveWord.content" placeholder="写点什么..."></textarea>
           <button class="publish">发布</button>
         </div>
+        <div class="leave-words" v-for="(item, index) in leaveWords" :key="index" v-if="leaveWords.length">
+          <p class="leave-name-date">
+            <span class="leave-name">{{item.name}}：</span><br />
+            <span class="leave-date">{{item.date}}</span>
+          </p>
+          <p class="leave-content">
+            {{item.content}}
+          </p>
+        </div>
       </div>
     </div>
   <!-- </div> -->
@@ -38,7 +47,20 @@ export default {
         content: '',
         name: '',
         mail: ''
-      }
+      },
+      leaveWords: [
+        {
+          name: '测试昵称',
+          date: '测试日期',
+          content: '测试留言内容'
+        },
+        {
+          name: '测试昵称测试昵称测试昵称测试昵称',
+          date: '2018-02-19',
+          content: `测试留言内容测试留言内容测试留言内容测试
+          留言内容测试留言内容测试留言内容测试留言内容测试留言内容测试留言内容`
+        }
+      ]
     }
   }
 }
@@ -96,7 +118,7 @@ export default {
 }
 .leave-word .tip {
   line-height: 50px;
-  background: #eee;
+  background: #ddd;
   font-size: 25px;
   font-weight: bold;
   color: #666;
@@ -136,5 +158,28 @@ export default {
 }
 .leave-word .publish:active {
   background: #fff;
+}
+
+.leave-words {
+  margin: 50px auto;
+  width: 100%;
+  max-width: 640px;
+  color: #666;
+}
+.leave-words .leave-name-date {
+  margin-top: 0px;
+  background: #ddd;
+  padding: 5px 0;
+}
+.leave-words .leave-name-date .leave-name {
+  font-weight: bold;
+  color: #666;
+}
+.leave-words .leave-name-date .leave-date {
+  color: #888;
+  font-size: 0.8em;
+}
+.leave-words .leave-content {
+  text-indent: 2em;
 }
 </style>
