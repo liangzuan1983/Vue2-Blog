@@ -1,10 +1,16 @@
 <template>
   <div>
-    <my-articles></my-articles>
+    <my-articles :url="url"></my-articles>
   </div>
 </template>
 
 <script>
 
-export default {}
+export default {
+  data () {
+    return {
+      url: '/gettypearticles.php?type=vue&pagination='
+    }
+  }
+}
 </script>

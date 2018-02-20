@@ -1,18 +1,24 @@
 <?php
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 $word = urldecode($_GET["word"]);
+$pagination = (int)test_input($_GET["pagination"]) * 10;
 
 $con = mysql_connect("localhost:3306", "root", "win");
 if (!$con) {
     echo 'Connect mysql failed!';
 } else {
     mysql_select_db("blog", $con);
-    $sql = "select * from articles where articletitle like " . '"%' . $word . '%"';
+    $sql = "select * from articles where articletitle like " . '"%' . $word . '%"' . " limit " . ($pagination-10) . "," . 10;
     $result = mysql_query($sql, $con);
 
     $re = "";
-    $count = 0;
     while($row = mysql_fetch_array($result)) {
-            $count += 1;
             $re .= ("{" .
                 '"title"' . ":" . '"' . $row["articletitle"] . '"' . ',' .
                 '"type"' . ":" . '"' . $row["articletype"] . '"' .  "," .
@@ -21,7 +27,10 @@ if (!$con) {
                  "},"
             );
     }
-    echo "[" . substr($re, 0, -1) . "," . $count . "]";
+    $sql = "select * from articles where articletitle like " . '"%' . $word . '%"';
+    $result = mysql_query($sql, $con);
+
+    echo "[" . substr($re, 0, -1) . "," . mysql_num_rows($result) . "]";
 }
 mysql_close($con);
 ?>

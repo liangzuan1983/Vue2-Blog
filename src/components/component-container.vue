@@ -18,6 +18,6 @@ export default {}
   padding: 20px 10px;
   border: 1px solid #ccc;
   position: relative;
-  top: 55px;
+  top: 35px;
 }
 </style>

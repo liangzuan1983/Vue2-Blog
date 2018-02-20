@@ -36,32 +36,46 @@
 export default {
   data () {
     return {
-      url: 'htmlPage',
-      title: '测试标题',
-      type: 'javascript',
-      content: `测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容测试内容
-        测试内容测试内容测试内容测试内容测试内容内容内测试内容测试内容测试内容测试内容测试
-        测试内容测试内容测试内容测试内容测试内容内容内`,
-      date: '2018-1-20',
+      title: '',
+      type: '',
+      content: '',
+      date: '',
       leaveWord: {
         content: '',
         name: '',
         mail: ''
       },
-      leaveWords: [
-        {
-          name: '测试昵称',
-          date: '测试日期',
-          content: '测试留言内容'
-        },
-        {
-          name: '测试昵称测试昵称测试昵称测试昵称',
-          date: '2018-02-19',
-          content: `测试留言内容测试留言内容测试留言内容测试
-          留言内容测试留言内容测试留言内容测试留言内容测试留言内容测试留言内容`
-        }
-      ]
+      leaveWords: []
     }
+  },
+  methods: {
+    getArticle (title) {
+      let _this = this
+      _this.$http
+        .get('/getarticle.php?title=' + title)
+        .then(function (response) {
+          if (response.data === '[]]') {
+            _this.$router.push('homePage')
+            return
+          }
+          _this.leaveWords = []
+          let leaveWords = response.data.pop()
+          let article = response.data[0]
+
+          _this.title = article.title
+          _this.type = article.type
+          _this.content = article.content
+          _this.date = article.date
+
+          for (let i = 0; i < leaveWords.length; i++) {
+            _this.leaveWords.push(leaveWords[i])
+          }
+        })
+    }
+  },
+  mounted () {
+    let title = this.$route.params.title
+    this.getArticle(title)
   }
 }
 </script>

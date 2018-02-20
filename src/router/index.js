@@ -9,6 +9,7 @@ import Css from '../views/page-css'
 import Vuepage from '../views/page-vue'
 import Otherpage from '../views/page-other'
 import Articlepage from '../views/page-article'
+import Searchpage from '../views/page-search'
 
 Vue.use(Router)
 
@@ -25,6 +26,14 @@ const Routers = [
     path: '/article/:title',
     name: 'articlePage',
     component: Articlepage
+  },
+  {
+    path: '/search/:word',
+    name: 'searchPage',
+    component: Searchpage,
+    meta: {
+      title: 'YJ-搜索'
+    }
   },
   {
     path: '/html',
@@ -90,7 +99,7 @@ const router = new Router(RouterConfig)
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     window.document.title = to.meta.title
-  } else if (to.params) {
+  } else {
     window.document.title = 'YJ-' + to.params.title
   }
   next()

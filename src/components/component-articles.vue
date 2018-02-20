@@ -14,7 +14,11 @@
         </p>
       </div>
       <div class="article-pagenum-button">
-        <slot></slot>
+        <button @click="prevPage" :disabled="pageButtonData.curPage<=1">&lt;&lt;</button>
+          <button v-for="(item, index) in pageButtonData.pageCount" :key="index" :disabled="index+1===pageButtonData.curPage" @click="goPage(item)">
+            {{item}}
+          </button>
+        <button @click="nextPage" :disabled="pageButtonData.curPage>=pageButtonData.pageCount">&gt;&gt;</button>
       </div>
     </div>
     <div v-else class="article-empty">
@@ -25,7 +29,7 @@
 
 <script>
 import Vue from 'vue'
-import bus from '../bus.js'
+import Bus from '../bus.js'
 
 export default {
   props: {
@@ -36,45 +40,98 @@ export default {
   },
   data () {
     return {
-      articles: []
+      articles: [],
+      pageButtonData: {}
     }
   },
   methods: {
+    // 显示全部
     openAll (index) {
       this.articles[index].opened = !this.articles[index].opened
       this.setCurContent(index)
       this.toggleOpen(index)
     },
+    // 设置缩略文章数据
     setCurContent (index) {
       if (this.articles[index].opened) {
         this.articles[index].curContent = this.articles[index].content
       } else {
-        this.articles[index].curContent = this.articles[index].content.slice(0, 64) + '...'
+        this.articles[index].curContent =
+          this.articles[index].content.slice(0, 64) + '...'
       }
     },
+    // 变换全部或收齐按钮
     toggleOpen (index) {
       if (!this.articles[index].opened) {
         this.articles[index].toggleName = '阅读全文'
       } else {
         this.articles[index].toggleName = '收起'
       }
+    },
+    // 获取数据
+    getData (pagination) {
+      let _this = this
+      _this.$http
+        .get(_this.url + pagination)
+        .then(function (response) {
+          // 先清空文章数据
+          _this.articles = []
+          _this.curContent = []
+          // 如果数据为空则返回
+          if (response.data === '[,0]') {
+            Vue.set(_this.pageButtonData, 'pageCount', Bus.$data.pageCount)
+            Vue.set(_this.pageButtonData, 'curPage', Bus.$data.curPage)
+            return
+          }
+          // 提取文章总数量
+          let pageCount = response.data.pop()
+          // 每页10篇算出页数
+          Bus.$data.pageCount = Math.ceil(pageCount / 10)
+          let data = response.data
+          // 循环添加文章
+          for (let i = 0; i < data.length; i++) {
+            _this.articles.push(data[i])
+            Vue.set(_this.articles[i], 'curContent', '')
+            Vue.set(_this.articles[i], 'toggleName', '阅读全文')
+            Vue.set(_this.articles[i], 'opened', false)
+            // 初始化缩略文章数据
+            _this.setCurContent(i)
+            Vue.set(_this.pageButtonData, 'pageCount', Bus.$data.pageCount)
+            Vue.set(_this.pageButtonData, 'curPage', Bus.$data.curPage)
+          }
+        })
+    },
+    // 下一页
+    nextPage () {
+      if (this.pageButtonData.curPage >= this.pageButtonData.pageCount) return
+      Bus.$data.curPage++
+      this.getData(Bus.$data.curPage)
+    },
+    // 上一页
+    prevPage () {
+      if (this.pageButtonData.curPage <= 0) return
+      Bus.$data.curPage--
+      this.getData(Bus.$data.curPage)
+    },
+    // 点击数字跳转特定页
+    goPage (num) {
+      if (num > this.pageButtonData.pageCount || num < 1) return
+      Bus.$data.curPage = num
+      this.getData(Bus.$data.curPage)
     }
   },
-  mounted: function () {
+  created: function () {
     let _this = this
-    _this.$http.get(_this.url)
-      .then(function (response) {
-        let pageCount = response.data.pop()
-        let data = response.data
-        for (let i = 0; i < data.length; i++) {
-          _this.articles.push(data[i])
-          Vue.set(_this.articles[i], 'curContent', '')
-          Vue.set(_this.articles[i], 'toggleName', '阅读全文')
-          Vue.set(_this.articles[i], 'opened', false)
-          bus.$emit('on-data', Math.ceil(pageCount / 10))
-          _this.setCurContent(i)
-        }
-      })
+    Bus.$on('search-change', function (url) {
+      _this.url = url
+      _this.getData(1)
+    })
+    this.getData(1)
+  },
+  beforeDestroy () {
+    // 恢复初始翻页数据
+    Bus.$data.pageCount = 0
+    Bus.$data.curPage = 1
   }
 }
 </script>
@@ -134,6 +191,19 @@ export default {
   max-width: 640px;
   margin: 0 auto;
   text-align: center;
+}
+.article-pagenum-button > button {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #ccc;
+  background: #eee;
+  font-weight: bold;
+}
+.article-pagenum-button > button:active {
+  background: #fff;
 }
 
 .article-empty {

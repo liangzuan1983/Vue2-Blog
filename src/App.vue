@@ -6,7 +6,7 @@
     <my-container>
       <router-view class="articles"></router-view>
       <my-profile class="profile"></my-profile>
-      <my-fresharticles class="fresharticles"></my-fresharticles>
+      <my-fresharticles class="fresharticles" url="/getfresharticles.php"></my-fresharticles>
     </my-container>
   </div>
 </template>

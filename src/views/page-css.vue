@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-articles></my-articles>
+    <my-articles :url="url"></my-articles>
   </div>
 </template>
 
@@ -8,8 +8,9 @@
 
 export default {
   data () {
-    return {}
-  },
-  mounted () {}
+    return {
+      url: '/gettypearticles.php?type=css&pagination='
+    }
+  }
 }
 </script>

@@ -1,9 +1,8 @@
 <template>
   <div>
       <div class="container">
-        <input type="text" v-model="value" class="search-input" @blur="inputBlur" />
-        <div class="search-button" :style="{background: 'url(' + navSearchBg + ')'}"
-                @click="handleClick" @keydown.enter="handleEnter"></div>
+        <input type="text" v-model="value" @keydown.enter="handleEnter" class="search-input" />
+        <div class="search-button" @click="handleClick"></div>
         <!-- <ul class="search-autocomplete">
             <li v-for="(item, index) in autocompleteList" :key="index" @click="autoInput(index)">
                 {{item}}
@@ -14,29 +13,26 @@
 </template>
 
 <script>
-import navSearchBg from '../assets/nav-search.svg'
-
 export default {
   methods: {
     handleClick () {
       this.handleEnter()
     },
     handleEnter () {
-      //   执行搜索请求
-    },
-    autoInput (index) {
-      this.value = this.autocompleteList[index]
-      this.handleEnter()
-    },
-    inputBlur () {
-      this.autocompleteList = []
+      this.$router.push('/search/' + this.value)
     }
+    // autoInput (index) {
+    //   this.value = this.autocompleteList[index]
+    //   this.handleEnter()
+    // },
+    // inputBlur () {
+    //   this.autocompleteList = []
+    // }
   },
   data () {
     return {
-      value: '',
-      navSearchBg: navSearchBg,
-      autocompleteList: ['first', 'second']
+      value: ''
+      // autocompleteList: []
     }
   }
 }
@@ -64,9 +60,14 @@ export default {
   height: 35px;
   border-radius: 50%;
   float: left;
+  background: url('../assets/nav-search.svg');
   background-size: cover;
 }
-.search-autocomplete {
+.search-button:hover {
+  background: url('../assets/nav-search-h.svg');
+  background-size: cover;
+}
+/* .search-autocomplete {
     background: #fff;
     position: absolute;
     top: 50px;
@@ -75,7 +76,7 @@ export default {
     padding: 0;
     width: 195px;
     z-index: -1;
-    /* display: none; */
+    display: none;
 }
 .search-autocomplete li {
     list-style: none;
@@ -89,7 +90,7 @@ export default {
     color: #fff;
     background: #666;
     cursor: pointer;
-}
+} */
 
 @media (max-width: 350px) {
   .container {
