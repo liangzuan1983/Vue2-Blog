@@ -70,11 +70,11 @@ export default {
 }
 .container .nameList li {
   list-style: none;
+  margin-top: 5px;
 }
 .container .nameList > li a {
   text-decoration: none;
   color: #666;
-  margin-top: 5px;
 }
 .container .nameList > li a:hover {
   color: #888;

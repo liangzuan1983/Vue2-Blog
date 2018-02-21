@@ -7,6 +7,7 @@
       <router-view class="articles"></router-view>
       <my-profile class="profile"></my-profile>
       <my-fresharticles class="fresharticles" url="/getfresharticles.php"></my-fresharticles>
+      <my-gototop></my-gototop>
     </my-container>
   </div>
 </template>
@@ -19,12 +20,14 @@ import myNavSearch from './components/component-navSearch'
 import myContainer from './components/component-container'
 import myProfile from './components/component-profile'
 import myFreshArticle from './components/component-fresharticles'
+import myGototop from './components/component-gototop'
 
 Vue.component('my-nav', myNav)
 Vue.component('my-navsearch', myNavSearch)
 Vue.component('my-container', myContainer)
 Vue.component('my-profile', myProfile)
 Vue.component('my-fresharticles', myFreshArticle)
+Vue.component('my-gototop', myGototop)
 
 Vue.directive('clickoutside', {
   bind: function (el, binding, vnode) {

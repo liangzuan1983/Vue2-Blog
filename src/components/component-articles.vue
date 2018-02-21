@@ -98,6 +98,8 @@ export default {
             _this.setCurContent(i)
             Vue.set(_this.pageButtonData, 'pageCount', Bus.$data.pageCount)
             Vue.set(_this.pageButtonData, 'curPage', Bus.$data.curPage)
+            // 调用gototop组件是页面回到顶部
+            Bus.$emit('scroll-gototop')
           }
         })
     },
