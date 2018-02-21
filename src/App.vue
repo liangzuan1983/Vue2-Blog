@@ -1,13 +1,13 @@
 <template>
   <div>
-    <my-nav>
+    <my-nav v-if="!isManagement">
       <my-navsearch class="nav-search"></my-navsearch>
     </my-nav>
     <my-container>
       <router-view class="articles"></router-view>
-      <my-profile class="profile"></my-profile>
-      <my-fresharticles class="fresharticles" url="/php/get/getfresharticles.php"></my-fresharticles>
-      <my-gototop></my-gototop>
+      <my-profile class="profile" v-if="!isManagement"></my-profile>
+      <my-fresharticles class="fresharticles" url="/php/get/getfresharticles.php" v-if="!isManagement"></my-fresharticles>
+      <my-gototop v-if="!isManagement"></my-gototop>
     </my-container>
   </div>
 </template>
@@ -15,6 +15,8 @@
 <script>
 // clickoutside指令
 import Vue from 'vue'
+import Bus from './bus.js'
+
 import myNav from './components/component-nav'
 import myNavSearch from './components/component-navSearch'
 import myContainer from './components/component-container'
@@ -48,7 +50,19 @@ Vue.directive('clickoutside', {
   }
 })
 
-export default {}
+export default {
+  data () {
+    return {
+      isManagement: false
+    }
+  },
+  created () {
+    let _this = this
+    Bus.$on('is-management', function (isManagement) {
+      _this.isManagement = isManagement
+    })
+  }
+}
 </script>
 
 <style scoped>

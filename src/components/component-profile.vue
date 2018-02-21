@@ -32,7 +32,7 @@ export default {
   data: function () {
     return {
       mailMe: 'http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=new_yj@foxmail.com',
-      github: 'https://github.com/new-yj',
+      github: 'https://github.com/new-yj/blog',
       headerBg: headerImg,
       bio: '知识就是力量。'
     }

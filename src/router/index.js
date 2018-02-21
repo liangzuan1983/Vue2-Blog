@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Bus from '../bus.js'
 
 import Index from '../views/page-index'
 import Demos from '../views/page-demos'
@@ -10,6 +11,7 @@ import Vuepage from '../views/page-vue'
 import Otherpage from '../views/page-other'
 import Articlepage from '../views/page-article'
 import Searchpage from '../views/page-search'
+import Managementlogin from '../views/page-login'
 
 Vue.use(Router)
 
@@ -84,6 +86,14 @@ const Routers = [
     }
   },
   {
+    path: '/management/login',
+    name: 'loginPage',
+    component: Managementlogin,
+    meta: {
+      title: 'YJ-登录管理'
+    }
+  },
+  {
     path: '*',
     redirect: '/'
   }
@@ -101,6 +111,14 @@ router.beforeEach((to, from, next) => {
     window.document.title = to.meta.title
   } else {
     window.document.title = 'YJ-' + to.params.title
+  }
+  // 验证是否登录
+  if (to.meta.auth) {
+    if (Bus.$data.isLogon) {
+      next()
+    } else {
+      next({name: 'loginPage'})
+    }
   }
   next()
 })
