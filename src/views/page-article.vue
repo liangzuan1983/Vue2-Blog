@@ -60,7 +60,7 @@ export default {
     getArticle (title) {
       let _this = this
       _this.$http
-        .get('/getarticle.php?title=' + title)
+        .get('/php/get/getarticle.php?title=' + title)
         .then(function (response) {
           if (response.data === '[]]') {
             // 如果没有相关数据则返回首页
@@ -122,7 +122,7 @@ export default {
         }
         // 发送数据
         _this.$http
-          .post('/setleaveword.php', data)
+          .post('/php/set/setleaveword.php', data)
           .then(function (response) {
             // 提示提交成功
           })

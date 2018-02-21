@@ -15,7 +15,7 @@ export default {
   },
   data () {
     return {
-      url: '/getsearcharticles.php?word=',
+      url: '/php/get/getsearcharticles.php?word=',
       word: ''
     }
   },

@@ -9,7 +9,7 @@
 export default {
   data () {
     return {
-      url: '/gettypearticles.php?type=other&pagination='
+      url: '/php/get/gettypearticles.php?type=other&pagination='
     }
   }
 }

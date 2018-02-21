@@ -1,6 +1,6 @@
 <template>
   <div>
-    <my-articles url="/getarticles.php?pagination="></my-articles>
+    <my-articles url="/php/get/getarticles.php?pagination="></my-articles>
     <my-footer class="footer">
       浙ICP备18006943号
     </my-footer>
