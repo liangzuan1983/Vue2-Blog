@@ -34,7 +34,11 @@ if (!$con) {
         );
     }
 
-    echo "[" . substr($re, 0, -1) . "]]";
+    if (mysql_num_rows($result) > 0) {
+        echo "[" . substr($re, 0, -1) . "]]";
+    } else {
+        echo "[" . substr($re, 0, -2) . ",[]]";
+    }
 }
 mysql_close($con);
 ?>

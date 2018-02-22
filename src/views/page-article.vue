@@ -1,41 +1,48 @@
 <template>
   <div v-cloak>
       <!-- 文章区域 -->
-      <div class="article">
-        <p>
-          <span class="article-title">{{title}}</span>
-        </p>
-        <p class="article-type-date">
-          分类：{{type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{date}}
-        </p>
-        <div class="article-content" v-html="content"></div>
-        <!-- 留言区域 -->
-        <div class="leave-word">
-          <p class="tip">您的邮箱不会被泄露</p>
-          <input type="text" v-model="leaveWord.name" placeholder="昵称" />
-          <p v-show="leaveWord.nameFalse">昵称长度必须在1~20</p>
-          <input type="text" v-model="leaveWord.mail" placeholder="邮箱" />
-          <p v-show="leaveWord.mailFalse">邮箱格式错误</p>
-          <textarea v-model="leaveWord.content" placeholder="写点什么..."></textarea>
-          <p v-show="leaveWord.contentFalse">内容不能为空</p>
-          <button class="publish" @click="submit">发布</button>
-        </div>
-        <!-- 已有留言区域 -->
-        <div class="leave-words" v-for="(item, index) in leaveWords" :key="index" v-if="leaveWords.length">
-          <p class="leave-name-date">
-            <span class="leave-name">{{item.name}}：</span><br />
-            <span class="leave-date">{{item.date}}</span>
+      <div class="article-container">
+        <div class="article">
+          <p>
+            <span class="article-title">{{title}}</span>
           </p>
-          <p class="leave-content">
-            {{item.content}}
+          <p class="article-type-date">
+            分类：{{type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{date}}
           </p>
-        </div>
+          <div class="article-content" v-html="content"></div>
+          <!-- 留言区域 -->
+          <div class="leave-word">
+            <p class="tip">您的邮箱不会被泄露</p>
+            <input type="text" v-model="leaveWord.name" placeholder="昵称" />
+            <p v-show="leaveWord.nameFalse">昵称长度必须在1~20</p>
+            <input type="text" v-model="leaveWord.mail" placeholder="邮箱" />
+            <p v-show="leaveWord.mailFalse">邮箱格式错误</p>
+            <textarea v-model="leaveWord.content" placeholder="写点什么..."></textarea>
+            <p v-show="leaveWord.contentFalse">内容不能为空</p>
+            <button class="publish" @click="submit">发布</button>
+          </div>
+          <!-- 已有留言区域 -->
+          <div class="leave-words" v-for="(item, index) in leaveWords" :key="index" v-if="leaveWords.length">
+            <p class="leave-name-date">
+              <span class="leave-name">{{item.name}}：</span><br />
+              <span class="leave-date">{{item.date}}</span>
+            </p>
+            <p class="leave-content">
+              {{item.content}}
+            </p>
+          </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
+  watch: {
+    '$route' (to, from) {
+      this.getArticle(to.params.title)
+    }
+  },
   data () {
     return {
       title: '',
@@ -68,6 +75,9 @@ export default {
             return
           }
           _this.leaveWords = []
+          if (typeof response.data === 'string') {
+            response.data = JSON.parse(response.data.replace(/\n/g, '\\n'))
+          }
           // 先提取出留言
           let leaveWords = response.data.pop()
           let article = response.data[0]
@@ -151,8 +161,8 @@ export default {
 }
 </script>
 
-<style scoped>
-.article {
+<style>
+/* .article-container {
   max-width: 680px;
   margin: 30px 0;
   box-sizing: border-box;
@@ -162,53 +172,53 @@ export default {
   background: #fff;
   box-shadow: 0 1px 5px #ccc;
 }
-.article .article-title {
+.article-container .article-title {
   font-size: 30px;
   font-weight: bold;
   color: #666;
   cursor: pointer;
 }
-.article .article-title:hover {
+.article-container .article-title:hover {
   color: #777;
 }
-.article .article-type-date {
+.article-container .article-type-date {
   color: #999;
 }
-.article .article-content {
+.article-container .article-content {
   text-indent: 2em;
   letter-spacing: 2px;
   font-size: 1.1em;
   color: #666;
 }
-.article .article-content img {
+.article-container .article-content img {
   display: block;
   margin: 10px auto;
   max-width: 660px;
   width: 100%;
 }
-.article pre {
+.article-container pre {
   color: #fff;
   background: #555;
   font-size: 1.2em;
   padding: 10px;
   text-indent: 0;
-}
+} */
 
-.leave-word {
+.article-container .article .leave-word {
   margin-top: 100px;
   width: 100%;
   max-width: 640px;
   padding-right: 10px;
   border-top: 2px solid #ccc;
 }
-.leave-word .tip {
+.article-container .article .leave-word .tip {
   line-height: 50px;
   background: #ddd;
   font-size: 25px;
   font-weight: bold;
   color: #666;
 }
-.leave-word input {
+.article-container .article .leave-word input {
   display: block;
   margin: 20px 10px;
   height: 25px;
@@ -217,7 +227,7 @@ export default {
   border: none;
   background: #eee;
 }
-.leave-word textarea {
+.article-container .article .leave-word textarea {
   display: block;
   margin: 20px auto;
   height: 100px;
@@ -229,7 +239,7 @@ export default {
   background: #eee;
   resize: none;
 }
-.leave-word .publish {
+.article-container .article .leave-word .publish {
   width: 48px;
   height: 32px;
   color: #666;
@@ -238,37 +248,37 @@ export default {
   border-radius: 5px;
   margin-left: 10px;
 }
-.leave-word .publish:hover {
+.article-container .article .leave-word .publish:hover {
   box-shadow: 0 0 7px #ccc;
 }
-.leave-word .publish:active {
+.article-container .article .leave-word .publish:active {
   background: #fff;
 }
-.leave-word p {
+.article-container .article .leave-word p {
   margin-left: 10px;
   color: #a00;
 }
 
-.leave-words {
+.article-container .article .leave-words {
   margin: 50px auto;
   width: 100%;
   max-width: 640px;
   color: #666;
 }
-.leave-words .leave-name-date {
+.article-container .article .leave-words .leave-name-date {
   margin-top: 0px;
   background: #ddd;
   padding: 5px 0;
 }
-.leave-words .leave-name-date .leave-name {
+.article-container .article .leave-words .leave-name-date .leave-name {
   font-weight: bold;
   color: #666;
 }
-.leave-words .leave-name-date .leave-date {
+.article-container .article .leave-words .leave-name-date .leave-date {
   color: #888;
   font-size: 0.8em;
 }
-.leave-words .leave-content {
+.article-container .article .leave-words .leave-content {
   text-indent: 2em;
 }
 </style>

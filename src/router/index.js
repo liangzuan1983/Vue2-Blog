@@ -12,6 +12,10 @@ import Otherpage from '../views/page-other'
 import Articlepage from '../views/page-article'
 import Searchpage from '../views/page-search'
 import Managementlogin from '../views/page-login'
+import Managementpage from '../views/page-management'
+import Writearticle from '../views/page-writearticle'
+import Managearticle from '../views/page-managearticle'
+import Manageleaveword from '../views/page-manageleaveword'
 
 Vue.use(Router)
 
@@ -92,6 +96,44 @@ const Routers = [
     meta: {
       title: 'YJ-登录管理'
     }
+  },
+  {
+    path: '/management',
+    name: 'managementpage',
+    component: Managementpage,
+    meta: {
+      title: 'YJ-管理界面',
+      auth: true
+    },
+    children: [
+      {
+        path: 'writearticle',
+        name: 'writeArticle',
+        component: Writearticle,
+        meta: {
+          title: 'YJ-写文章',
+          auth: true
+        }
+      },
+      {
+        path: 'managearticle',
+        name: 'manageArticle',
+        component: Managearticle,
+        meta: {
+          title: 'YJ-管理文章',
+          auth: true
+        }
+      },
+      {
+        path: 'managelaveword',
+        name: 'manageLeaveword',
+        component: Manageleaveword,
+        meta: {
+          title: 'YJ-管理评论',
+          auth: true
+        }
+      }
+    ]
   },
   {
     path: '*',

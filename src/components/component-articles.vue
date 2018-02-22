@@ -83,6 +83,9 @@ export default {
             Vue.set(_this.pageButtonData, 'curPage', Bus.$data.curPage)
             return
           }
+          if (typeof response.data === 'string') {
+            response.data = JSON.parse(response.data.replace(/\n/g, '\\n'))
+          }
           // 提取文章总数量
           let pageCount = response.data.pop()
           // 每页10篇算出页数
