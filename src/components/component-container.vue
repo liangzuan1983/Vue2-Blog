@@ -16,7 +16,7 @@ export default {}
   width: auto;
   margin: 0 auto;
   padding: 20px 10px;
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   position: relative;
   top: 35px;
 }
