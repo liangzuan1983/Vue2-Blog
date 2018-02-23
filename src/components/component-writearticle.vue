@@ -68,7 +68,8 @@ export default {
       let dataObj = {
         articletitle: _this.title,
         articletype: _this.type,
-        articlecontent: _this.content
+        // 替换掉内容中的&，服务端写入数据库前替换回&
+        articlecontent: _this.content.replace(/&/g, '@8@8@8')
       }
       let data = ''
       for (let key in dataObj) {
@@ -77,7 +78,6 @@ export default {
       _this.$http
         .post(_this.url, data)
         .then(function (response) {
-          // window.location.reload()
           // 数据提交后清空
           _this.title = ''
           _this.content = ''

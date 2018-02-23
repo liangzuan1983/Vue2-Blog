@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             mysql_select_db("blog", $con);
             $articletitle = test_input($_POST["articletitle"]);
             $articletype = test_input($_POST["articletype"]);
-            $articlecontent = test_input($_POST["articlecontent"]);
+            // 替换回&
+            $articlecontent = str_replace("@8@8@8", "&", test_input($_POST["articlecontent"]));
             $d = date('Y-m-d');
 
             $sql = "INSERT INTO articles values(null, '$articletitle', '$articletype', '$articlecontent', '$d')";

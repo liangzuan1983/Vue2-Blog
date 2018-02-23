@@ -102,6 +102,7 @@ export default {
           let data = response.data
           // 循环添加文章
           for (let i = 0; i < data.length; i++) {
+            // 替换实体字符双引号
             data[i].content = data[i].content.replace(/&quot;/g, '"')
             _this.articles.push(data[i])
             Vue.set(_this.articles[i], 'curContent', '')
@@ -204,6 +205,9 @@ export default {
   font-size: 1.2em;
   padding: 10px;
   text-indent: 0;
+  /* 支持根据容器大小换行 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 .article-container .article .article-openall-container {
   text-align: right;
