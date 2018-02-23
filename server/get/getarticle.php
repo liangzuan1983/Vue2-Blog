@@ -1,5 +1,12 @@
 <?php
-$title = urldecode($_GET["title"]);
+function test_input($data) {
+    $data = stripslashes($data);
+    $data = str_replace('"', "&quot;", $data);
+    $data = str_replace("'", "&apos;", $data);
+    return $data;
+}
+
+$title = test_input(urldecode($_GET["title"]));
 
 $con = mysql_connect("localhost:3306", "root", "win");
 if (!$con) {

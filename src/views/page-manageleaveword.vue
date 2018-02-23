@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       gUrl: '/php/management/getleaveword.php',
-      sUrl: '/php/management/delleaveword.php'
+      sUrl: '/php/management/delleaveword.php?id='
     }
   }
 }

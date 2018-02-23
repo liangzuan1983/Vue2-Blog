@@ -38,6 +38,7 @@
 
 <script>
 export default {
+  // 监听路由变化然后请求数据
   watch: {
     '$route' (to, from) {
       this.getArticle(to.params.title)
@@ -80,11 +81,11 @@ export default {
           }
           // 先提取出留言
           let leaveWords = response.data.pop()
+          // 文章数据
           let article = response.data[0]
-
           _this.title = article.title
           _this.type = article.type
-          _this.content = article.content
+          _this.content = article.content.replace(/&quot;/g, '"')
           _this.date = article.date
 
           // 循环添加加载的留言

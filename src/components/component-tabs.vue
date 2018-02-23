@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import Bus from '../bus.js'
-
 export default {
   props: {
     tabList: {
@@ -19,9 +17,6 @@ export default {
         return []
       }
     }
-  },
-  mounted () {
-    Bus.$emit('is-management', true)
   }
 }
 </script>

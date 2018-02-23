@@ -6,7 +6,7 @@ var bus = new Vue({
     pageCount: 0,
     curPage: 1,
     // router引用，判断是否登录
-    isLogon: 1
+    isLogon: 0
   }
 })
 

@@ -38,7 +38,7 @@ export default {
           Bus.$data.isLogon = response.data
           if (Bus.$data.isLogon) {
             //   如果用户名密码正确则跳转路由
-            _this.$router.push({name: 'managementpage'})
+            _this.$router.push({name: 'writeArticle'})
           } else {
             //   如果用户名或密码错误
             _this.dataError = true

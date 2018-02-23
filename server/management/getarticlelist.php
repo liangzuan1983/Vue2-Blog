@@ -4,13 +4,17 @@ if (!$con) {
     echo 'Connect mysql failed!';
 } else {
     mysql_select_db("blog", $con);
-    $sql = "select * from articles limit 0,10";
+    $sql = "select * from articles order by articledate desc";
     $result = mysql_query($sql, $con);
 
     $re = "";
     while($row = mysql_fetch_array($result)) {
-            $re .= ('"' . $row["articletitle"] . '"' . ",");
+            $count += 1;
+            $re .= (
+                '"' . $row["articletitle"] . '"' . ','
+            );
     }
+
     echo "[" . substr($re, 0, -1) . "]";
 }
 mysql_close($con);

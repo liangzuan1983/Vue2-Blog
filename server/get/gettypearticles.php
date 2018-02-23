@@ -1,12 +1,12 @@
 <?php
 function test_input($data) {
-    $data = trim($data);
     $data = stripslashes($data);
-    $data = htmlspecialchars($data);
+    $data = str_replace('"', "&quot;", $data);
+    $data = str_replace("'", "&apos;", $data);
     return $data;
 }
 
-$type = urldecode($_GET["type"]);
+$type = test_input(urldecode($_GET["type"]));
 $pagination = (int)test_input($_GET["pagination"]) * 10;
 
 $con = mysql_connect("localhost:3306", "root", "win");

@@ -9,7 +9,7 @@
             <p class="leave-content">
               {{item.content}}
             </p>
-            <button class="leave-del">删除</button>
+            <button class="leave-del" @click="removeLeaveword(index)">删除</button>
         </div>
       </div>
   </div>
@@ -27,21 +27,44 @@ export default {
       default: ''
     }
   },
+  methods: {
+    removeLeaveword (index) {
+      //  删除评论操作
+      let _this = this
+      _this.$http
+        .get(_this.sUrl + _this.leaveWords[index].id)
+        .then(function (response) {
+          // 提示删除成功
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      _this.leaveWords.splice(index, 1)
+    },
+    getLeaveword () {
+      let _this = this
+      _this.$http.get(_this.gUrl).then(function (response) {
+        // 如果数据返回为空则返回
+        if (response.data === '[]') return
+        if (typeof response.data === 'string') {
+          response.data = JSON.parse(response.data.replace(/\n/g, '\\n'))
+        }
+        // 留言列表
+        let leaveWords = response.data
+        // 循环添加留言数据
+        for (let i = 0; i < leaveWords.length; i++) {
+          _this.leaveWords.push(leaveWords[i])
+        }
+      })
+    }
+  },
   data () {
     return {
-      leaveWords: [
-        {
-          name: 'yj',
-          date: '2018-2-22',
-          content: 'wtt, i love you.sdfsfdsdfsdfdfsdfsdfsdfdsfsdfddddddddddddd'
-        },
-        {
-          name: 'wtt',
-          date: '2018-2-22',
-          content: 'e.sfddddddddddddddddddddddddddddddddddddddddddddddddddddddddd'
-        }
-      ]
+      leaveWords: []
     }
+  },
+  mounted () {
+    this.getLeaveword()
   }
 }
 </script>
@@ -66,8 +89,8 @@ export default {
   box-shadow: 1px 1px 7px #ccc;
 }
 .leave-container * {
-  word-wrap:break-word;
-  word-break:break-all;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 .leave-container .leave-name-date .leave-name {
   font-weight: bold;
@@ -81,21 +104,21 @@ export default {
   text-indent: 2em;
 }
 .leave-container .leave-del {
-    width: 50px;
-    height: 30px;
-    border-radius: 5px;
-    border: 1px #ccc solid;
-    outline: none;
-    background: #b00;
-    color: #eee;
-    float: right;
+  width: 50px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px #ccc solid;
+  outline: none;
+  background: #b00;
+  color: #eee;
+  float: right;
 }
 .leave-container .leave-del:hover {
-    background: #c00;
-    color: #fff;
+  background: #c00;
+  color: #fff;
 }
 .leave-container .leave-del:active {
-    background: #a00;
-    color: #ddd;
+  background: #a00;
+  color: #ddd;
 }
 </style>

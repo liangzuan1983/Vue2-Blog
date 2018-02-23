@@ -13,8 +13,8 @@ Vue.component('my-managearticle', myManagearticle)
 export default {
   data () {
     return {
-      gUrl: '/php/management/writearticle.php',
-      sUrl: '/php/management/delarticle.php'
+      gUrl: '/php/management/getarticlelist.php',
+      sUrl: '/php/management/delarticle.php?title='
     }
   }
 }

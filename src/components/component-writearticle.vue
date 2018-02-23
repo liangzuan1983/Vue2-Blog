@@ -77,7 +77,11 @@ export default {
       _this.$http
         .post(_this.url, data)
         .then(function (response) {
-          window.location.reload()
+          // window.location.reload()
+          // 数据提交后清空
+          _this.title = ''
+          _this.content = ''
+          _this.type = ''
           // 提示提交成功
         })
         .catch(function (error) {

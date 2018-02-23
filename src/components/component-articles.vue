@@ -1,18 +1,24 @@
 <template>
   <div v-cloak>
     <div class="article-container" v-if="articles.length">
+      <!-- 文章卡片 -->
       <div class="article" v-for="(item, index) in articles" :key="index">
+        <!-- 文章标题 -->
         <p>
           <router-link :to="{ name: 'articlePage', params: {title:item.title}}" class="article-title">{{item.title}}</router-link>
         </p>
+        <!-- 文章日期 -->
         <p class="article-type-date">
           分类：{{item.type}}&nbsp;&nbsp;&nbsp;&nbsp;发布时间：{{item.date}}
         </p>
+        <!-- 文章内容 -->
         <div class="article-content" v-html="item.curContent"></div>
+        <!-- 展开或收起按钮 -->
         <p class="article-openall-container">
           <a class="article-openall" @click="openAll(index)">{{item.toggleName}}</a>
         </p>
       </div>
+      <!-- 选页按钮 -->
       <div class="article-pagenum-button">
         <button @click="prevPage" :disabled="pageButtonData.curPage<=1">&lt;&lt;</button>
           <button v-for="(item, index) in pageButtonData.pageCount" :key="index" :disabled="index+1===pageButtonData.curPage" @click="goPage(item)">
@@ -21,6 +27,7 @@
         <button @click="nextPage" :disabled="pageButtonData.curPage>=pageButtonData.pageCount">&gt;&gt;</button>
       </div>
     </div>
+    <!-- 内容为空时显示 -->
     <div v-else class="article-empty">
       <p>没有相关内容</p>
     </div>
@@ -83,6 +90,7 @@ export default {
             Vue.set(_this.pageButtonData, 'curPage', Bus.$data.curPage)
             return
           }
+          // 消除换行
           if (typeof response.data === 'string') {
             response.data = JSON.parse(response.data.replace(/\n/g, '\\n'))
           }
@@ -90,9 +98,11 @@ export default {
           let pageCount = response.data.pop()
           // 每页10篇算出页数
           Bus.$data.pageCount = Math.ceil(pageCount / 10)
+          // 文章数据
           let data = response.data
           // 循环添加文章
           for (let i = 0; i < data.length; i++) {
+            data[i].content = data[i].content.replace(/&quot;/g, '"')
             _this.articles.push(data[i])
             Vue.set(_this.articles[i], 'curContent', '')
             Vue.set(_this.articles[i], 'toggleName', '阅读全文')
@@ -171,13 +181,24 @@ export default {
   font-size: 1.1em;
   color: #666;
 }
-.article-container .article .article-content img {
+.article-container .article .article-content img, video {
   display: block;
   margin: 10px auto;
   max-width: 660px;
   width: 100%;
 }
-.article-container .article pre {
+.article-container .article .article-content p, a, pre, u, i, h1, h2, h3, h4, h5, h6 {
+  word-wrap:break-word;
+  word-break:break-all;
+}
+.article-container .article .article-content a {
+  text-decoration: underline;
+  color: rgb(117, 117, 117);
+}
+.article-container .article .article-content a:hover {
+  color: #175199;
+}
+.article-container .article .article-content pre {
   color: #fff;
   background: #555;
   font-size: 1.2em;
@@ -189,7 +210,7 @@ export default {
   margin-right: 10px;
 }
 .article-container .article .article-openall {
-  color: rgb(126, 161, 255);
+  color: #175199;
   cursor: pointer;
 }
 .article-pagenum-button {

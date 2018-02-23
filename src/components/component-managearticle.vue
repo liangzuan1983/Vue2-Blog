@@ -22,8 +22,42 @@ export default {
   },
   data () {
     return {
-      articleList: ['firdfadfsdfsfdsfadsdfdsfdsfsdfsdfsdfsdfsdfffasddfst', 'sedsfasfsfsfdfsddfsdffsfcond']
+      articleList: []
     }
+  },
+  methods: {
+    removeArticle (index) {
+      // 删除文章操作
+      let _this = this
+      _this.$http
+        .get(_this.sUrl + _this.articleList[index])
+        .then(function (response) {
+          // 提示删除成功
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      // 输出前端数据
+      _this.articleList.splice(index, 1)
+    },
+    getArticleList () {
+      let _this = this
+      _this.$http
+        .get(_this.gUrl)
+        .then(function (response) {
+          // 如果数据为空则返回
+          if (response.data === '[]') return
+          // 文章列表
+          let articleList = response.data
+          // 循环添加文章数据
+          for (let i = 0; i < articleList.length; i++) {
+            _this.articleList.push(articleList[i])
+          }
+        })
+    }
+  },
+  mounted () {
+    this.getArticleList()
   }
 }
 </script>
