@@ -14,7 +14,7 @@ export default {
   data () {
     return {
       url: '/php/management/writearticle.php',
-      typeList: ['', 'html', 'css', 'javascript', 'vue', 'other']
+      typeList: ['', 'html', 'css', 'javascript', 'vue', 'demo', 'other']
     }
   }
 }

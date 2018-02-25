@@ -187,6 +187,9 @@ export default {
   margin: 10px auto;
   max-width: 660px;
   width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 .article-container .article .article-content p, a, pre, u, i, h1, h2, h3, h4, h5, h6 {
   word-wrap:break-word;
