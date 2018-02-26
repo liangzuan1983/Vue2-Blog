@@ -40,7 +40,7 @@
 
 后台请自行搭建，可参考：
 
-`https://lamp.sh/`
+> https://lamp.sh/
 
 运行：
 
