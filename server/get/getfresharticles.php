@@ -4,7 +4,7 @@ if (!$con) {
     echo 'Connect mysql failed!';
 } else {
     mysql_select_db("blog", $con);
-    $sql = "select * from articles limit 0,10";
+    $sql = "select * from articles order by articledate desc limit 0,10";
     $result = mysql_query($sql, $con);
 
     $re = "";
