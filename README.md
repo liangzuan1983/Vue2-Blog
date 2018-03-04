@@ -44,9 +44,24 @@
 
 运行：
 
-`npm run dev`
-
+`npm run dev
 ## 效果展示
+1. 主页
+![图片](https://s26.postimg.org/s01f4aw0p/home-page.jpg)
+2. 留言
+![图片](https://s26.postimg.org/3wanfz395/leave-word.jpg)
+3. 发布文章
+![图片](https://s26.postimg.org/f8n8xt1o9/write-articel.jpg)
+4. 管理文章
+![图片](https://s26.postimg.org/i2qeb8gp5/manage-article.jpg)
+5. 管理评论
+![图片](https://s26.postimg.org/xo7pv5icp/manage-leaveword.jpg)
+6. 移动端
+![图片](https://s26.postimg.org/l9kxuutfd/S80304-134521.jpg)
+
+![图片](https://s26.postimg.org/qkzufk02h/S80304-134542.jpg)
+
+![图片](https://s26.postimg.org/jujd64kmh/S80304-134839.jpg)
 
 ## 待改进
 - 评论没有回复功能
