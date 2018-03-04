@@ -57,6 +57,7 @@
 5. 管理评论
 ![图片](https://s26.postimg.org/xo7pv5icp/manage-leaveword.jpg)
 6. 移动端
+
 ![图片](https://s26.postimg.org/l9kxuutfd/S80304-134521.jpg)
 
 ![图片](https://s26.postimg.org/qkzufk02h/S80304-134542.jpg)
@@ -64,9 +65,9 @@
 ![图片](https://s26.postimg.org/jujd64kmh/S80304-134839.jpg)
 
 ## 待改进
-- 评论没有回复功能
-- 没有回复限制
-- 回复无换行
+- 留言没有回复功能
+- 没有留言限制
+- 留言内容无换行
 - 路由跳转没有过渡动画
 - 管理界面太简陋
 
