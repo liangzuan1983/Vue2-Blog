@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import App from './App'
 
+require('es6-promise').polyfill()
 axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 Vue.prototype.$http = axios
 
